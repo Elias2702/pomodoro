@@ -1,1 +1,3 @@
-# pomodor
+# Pomodoro
+
+Occupy Mars.

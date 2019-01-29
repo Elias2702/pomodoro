@@ -1,0 +1,23 @@
+body {
+  background-color: #fefefe;
+  text-align: center; }
+  body #timer {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 8em; }
+  body .navbar {
+    background: #00c4a7;
+    color: #E7DACB;
+    height: 75px; }
+    body .navbar img {
+      height: 150px;
+      margin-left: 1em; }
+  body h1 {
+    font-size: 40px; }
+  body h2 {
+    font-size: 25px; }
+  body .container {
+    margin-top: 6em; }
+    body .container .tile {
+      text-align: center; }
+    body .container .is-success {
+      background-color: #00c4a7; }
