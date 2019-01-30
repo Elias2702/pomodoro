@@ -1,5 +1,5 @@
 $background-color : #fefefe;
-$second-color : rgb(0, 196, 167);
+$second-color : rgb(0, 209, 178);
 
 body {
   background-color: $background-color;
@@ -16,6 +16,11 @@ body {
           height: 150px;
           margin-left: 1em;
       }
+      h1 {
+          margin-left: 2em;
+          padding-top: 5px;
+          color: white;
+      }
   }
   h1 {
     font-size: 40px;
@@ -25,11 +30,34 @@ body {
   }
   .container {
       margin-top: 6em;
+      .tile.is-ancestor {
+          margin: auto;
+      }
       .tile {
           text-align: center;
       }
       .is-success {
           background-color: rgb(0, 196, 167);
+      }
+      #controlpanel {
+          padding: 10px;
+          background-color: rgba(255, 221, 87, 0);
+          border: none;
+          a {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            background-color: rgba(255, 221, 87, 0);
+            border-color: $second-color;
+            color: $second-color;
+            font-size: 1.5em;
+          }
+          a:hover {
+            background-color: $second-color;
+            color: white;
+          }
+        }
+        #controlpanel:hover {
+            background-color: rgba(255, 221, 87, 0.85);
       }
   }
 }

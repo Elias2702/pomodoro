@@ -24508,7 +24508,7 @@ var Header = function Header() {
   }, _react.default.createElement("img", {
     src: _pomodoro.default,
     alt: "a pomodoro timer"
-  }))));
+  }), _react.default.createElement("h1", null, "Pomofoiro"))));
 };
 
 var _default = Header;
@@ -24563,7 +24563,7 @@ function (_React$Component) {
         class: "tile is-parent notification is-info box"
       }, _react.default.createElement("div", {
         class: "tile is-child"
-      }, _react.default.createElement("h1", null, "Ready to start a work session of ", _react.default.createElement("strong", null, this.props.time), "?")));
+      }, _react.default.createElement("h1", null, "Ready to start a work session of ", _react.default.createElement("strong", null, this.props.time, " min"), "?")));
     }
   }]);
 
@@ -24620,7 +24620,7 @@ function (_React$Component) {
         class: "tile is-child notification is-primary box"
       }, _react.default.createElement("p", {
         id: "timer"
-      }, "02:27"));
+      }, this.props.time, ":27"));
     }
   }]);
 
@@ -24629,7 +24629,7 @@ function (_React$Component) {
 
 var _default = Timer;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/component/Controls.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/component/Controls/ReStart.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24638,6 +24638,72 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ReStart = function ReStart() {
+  return _react.default.createElement("div", null, _react.default.createElement("a", {
+    class: "button is-fullwidth is-rounded"
+  }, "ReStart"));
+};
+
+var _default = ReStart;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/component/Controls/Increment.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Increment = function Increment() {
+  return _react.default.createElement("div", null, _react.default.createElement("a", {
+    class: "button is-fullwidth is-rounded"
+  }, "Increment"));
+};
+
+var _default = Increment;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/component/Controls/Decrement.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Decrement = function Decrement() {
+  return _react.default.createElement("div", null, _react.default.createElement("a", {
+    class: "button is-fullwidth is-rounded"
+  }, "Decrement"));
+};
+
+var _default = Decrement;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/component/Controls/ControlPanel.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _ReStart = _interopRequireDefault(require("./ReStart"));
+
+var _Increment = _interopRequireDefault(require("./Increment"));
+
+var _Decrement = _interopRequireDefault(require("./Decrement"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24659,32 +24725,33 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Controls =
+var ControlPanel =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Controls, _React$Component);
+  _inherits(ControlPanel, _React$Component);
 
-  function Controls() {
-    _classCallCheck(this, Controls);
+  function ControlPanel() {
+    _classCallCheck(this, ControlPanel);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Controls).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(ControlPanel).apply(this, arguments));
   }
 
-  _createClass(Controls, [{
+  _createClass(ControlPanel, [{
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
-        class: "tile is-child is-3 notification is-warning box"
-      }, _react.default.createElement("div", null, _react.default.createElement("h2", null, "Button 1")), _react.default.createElement("div", null, _react.default.createElement("h2", null, "Button 2")), _react.default.createElement("div", null, _react.default.createElement("h2", null, "Button 3")));
+        class: "tile is-child is-3 notification is-warning box",
+        id: "controlpanel"
+      }, _react.default.createElement(_Increment.default, null), _react.default.createElement(_ReStart.default, null), _react.default.createElement(_Decrement.default, null));
     }
   }]);
 
-  return Controls;
+  return ControlPanel;
 }(_react.default.Component);
 
-var _default = Controls;
+var _default = ControlPanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/component/Instructions.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./ReStart":"src/component/Controls/ReStart.js","./Increment":"src/component/Controls/Increment.js","./Decrement":"src/component/Controls/Decrement.js"}],"src/component/Instructions.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24753,7 +24820,82 @@ function (_React$Component) {
 
 var _default = Instructions;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/component/PomodoroBuild.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _StatusMessage = _interopRequireDefault(require("./StatusMessage"));
+
+var _Timer = _interopRequireDefault(require("./Timer"));
+
+var _ControlPanel = _interopRequireDefault(require("./Controls/ControlPanel"));
+
+var _Instructions = _interopRequireDefault(require("./Instructions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var time = 23;
+
+var PomodoroBuild =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PomodoroBuild, _React$Component);
+
+  function PomodoroBuild() {
+    _classCallCheck(this, PomodoroBuild);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PomodoroBuild).apply(this, arguments));
+  }
+
+  _createClass(PomodoroBuild, [{
+    key: "render",
+    value: function render() {
+      return (// Following a Bulma Tile template: https://bulma.io/documentation/layout/tiles/
+        _react.default.createElement("div", {
+          class: "container"
+        }, _react.default.createElement("div", {
+          class: "tile is-ancestor is-vertical is-11"
+        }, _react.default.createElement(_StatusMessage.default, {
+          time: time
+        }), _react.default.createElement("div", {
+          class: "tile is-parent"
+        }, _react.default.createElement(_Timer.default, {
+          time: time
+        }), _react.default.createElement(_ControlPanel.default, null)), _react.default.createElement(_Instructions.default, null)))
+      );
+    }
+  }]);
+
+  return PomodoroBuild;
+}(_react.default.Component);
+
+var _default = PomodoroBuild;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","./StatusMessage":"src/component/StatusMessage.js","./Timer":"src/component/Timer.js","./Controls/ControlPanel":"src/component/Controls/ControlPanel.js","./Instructions":"src/component/Instructions.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -24834,13 +24976,7 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _Header = _interopRequireDefault(require("./component/Header"));
 
-var _StatusMessage = _interopRequireDefault(require("./component/StatusMessage"));
-
-var _Timer = _interopRequireDefault(require("./component/Timer"));
-
-var _Controls = _interopRequireDefault(require("./component/Controls"));
-
-var _Instructions = _interopRequireDefault(require("./component/Instructions"));
+var _PomodoroBuild = _interopRequireDefault(require("./component/PomodoroBuild"));
 
 require("./scss/app.scss");
 
@@ -24878,17 +25014,7 @@ function (_React$Component) {
   _createClass(Main, [{
     key: "render",
     value: function render() {
-      return (// Following a Bulma Tile template: https://bulma.io/documentation/layout/tiles/
-        _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement("div", {
-          class: "container"
-        }, _react.default.createElement("div", {
-          class: "tile is-ancestor is-vertical is-11"
-        }, _react.default.createElement(_StatusMessage.default, {
-          time: "30 min"
-        }), _react.default.createElement("div", {
-          class: "tile is-parent"
-        }, _react.default.createElement(_Timer.default, null), _react.default.createElement(_Controls.default, null)), _react.default.createElement(_Instructions.default, null))))
-      );
+      return _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement(_PomodoroBuild.default, null));
     }
   }]);
 
@@ -24898,7 +25024,7 @@ function (_React$Component) {
 var App = document.getElementById("app");
 
 _reactDom.default.render(_react.default.createElement(Main, null), App);
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./component/Header":"src/component/Header.js","./component/StatusMessage":"src/component/StatusMessage.js","./component/Timer":"src/component/Timer.js","./component/Controls":"src/component/Controls.js","./component/Instructions":"src/component/Instructions.js","./scss/app.scss":"src/scss/app.scss"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./component/Header":"src/component/Header.js","./component/PomodoroBuild":"src/component/PomodoroBuild.js","./scss/app.scss":"src/scss/app.scss"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -24925,7 +25051,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34139" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44869" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
