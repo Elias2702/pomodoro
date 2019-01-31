@@ -7,9 +7,9 @@ body {
   body .navbar {
     background: #00d1b2;
     color: #E7DACB;
-    height: 75px; }
+    height: 10%; }
     body .navbar img {
-      height: 150px;
+      height: 200%;
       margin-left: 1em; }
     body .navbar h1 {
       margin-left: 2em;

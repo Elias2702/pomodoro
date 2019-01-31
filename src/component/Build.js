@@ -6,7 +6,8 @@ import Instructions from './Instructions';
 
 let time = 23;
 
-class PomodoroBuild extends React.Component {
+
+class Build extends React.Component {
 
     render() {
         return (  // Following a Bulma Tile template: https://bulma.io/documentation/layout/tiles/
@@ -14,7 +15,7 @@ class PomodoroBuild extends React.Component {
                 <div class="tile is-ancestor is-vertical is-11">
                     <StatusMessage time={time} />
                     <div class="tile is-parent">
-                        <Timer time={time }/>
+                        <Timer time={time}/>
                         <ControlPanel/>
                     </div>
                 <Instructions/>
@@ -24,4 +25,4 @@ class PomodoroBuild extends React.Component {
     }
 }
 
-export default PomodoroBuild
+export default Build

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Header from './component/Header';
-import PomodoroBuild from './component/PomodoroBuild';
+import Build from './component/Build';
 import './scss/app.scss';
 
 class Main extends React.Component {
@@ -9,7 +9,7 @@ class Main extends React.Component {
         return (
         <div>
             <Header/>
-            <PomodoroBuild/>
+            <Build/>
         </div>
         )
     }

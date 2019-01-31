@@ -24602,6 +24602,38 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var sec = 11;
+var min = 0;
+startTimer();
+
+function startTimer() {
+  sec = sec - 1;
+
+  if (sec === -1 && min >= 1) {
+    sec = 59;
+    min = min - 1;
+  }
+
+  ;
+
+  if (sec === 0 && min === 0) {
+    sec = "0" + sec;
+    console.log(min + ':' + sec);
+    console.log('Countdown is finished');
+    return;
+  }
+
+  ;
+
+  if (sec < 10 && sec >= 0) {
+    sec = "0" + sec;
+  }
+
+  ;
+  console.log(min + ':' + sec);
+  setTimeout(startTimer, 1000);
+}
+
 var Timer =
 /*#__PURE__*/
 function (_React$Component) {
@@ -24820,7 +24852,7 @@ function (_React$Component) {
 
 var _default = Instructions;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/component/PomodoroBuild.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/component/Build.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24860,18 +24892,18 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var time = 23;
 
-var PomodoroBuild =
+var Build =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(PomodoroBuild, _React$Component);
+  _inherits(Build, _React$Component);
 
-  function PomodoroBuild() {
-    _classCallCheck(this, PomodoroBuild);
+  function Build() {
+    _classCallCheck(this, Build);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(PomodoroBuild).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Build).apply(this, arguments));
   }
 
-  _createClass(PomodoroBuild, [{
+  _createClass(Build, [{
     key: "render",
     value: function render() {
       return (// Following a Bulma Tile template: https://bulma.io/documentation/layout/tiles/
@@ -24890,10 +24922,10 @@ function (_React$Component) {
     }
   }]);
 
-  return PomodoroBuild;
+  return Build;
 }(_react.default.Component);
 
-var _default = PomodoroBuild;
+var _default = Build;
 exports.default = _default;
 },{"react":"node_modules/react/index.js","./StatusMessage":"src/component/StatusMessage.js","./Timer":"src/component/Timer.js","./Controls/ControlPanel":"src/component/Controls/ControlPanel.js","./Instructions":"src/component/Instructions.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
@@ -24976,7 +25008,7 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _Header = _interopRequireDefault(require("./component/Header"));
 
-var _PomodoroBuild = _interopRequireDefault(require("./component/PomodoroBuild"));
+var _Build = _interopRequireDefault(require("./component/Build"));
 
 require("./scss/app.scss");
 
@@ -25014,7 +25046,7 @@ function (_React$Component) {
   _createClass(Main, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement(_PomodoroBuild.default, null));
+      return _react.default.createElement("div", null, _react.default.createElement(_Header.default, null), _react.default.createElement(_Build.default, null));
     }
   }]);
 
@@ -25024,7 +25056,7 @@ function (_React$Component) {
 var App = document.getElementById("app");
 
 _reactDom.default.render(_react.default.createElement(Main, null), App);
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./component/Header":"src/component/Header.js","./component/PomodoroBuild":"src/component/PomodoroBuild.js","./scss/app.scss":"src/scss/app.scss"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./component/Header":"src/component/Header.js","./component/Build":"src/component/Build.js","./scss/app.scss":"src/scss/app.scss"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -25051,7 +25083,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44869" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33645" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
