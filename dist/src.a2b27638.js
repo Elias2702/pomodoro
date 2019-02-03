@@ -24560,9 +24560,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
-        class: "tile is-parent notification is-info box"
+        className: "tile is-parent notification is-info box"
       }, _react.default.createElement("div", {
-        class: "tile is-child"
+        className: "tile is-child"
       }, _react.default.createElement("h1", null, "Ready to start a work session of ", _react.default.createElement("strong", null, this.props.time, " min"), "?")));
     }
   }]);
@@ -24594,65 +24594,118 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var sec = 11;
-var min = 0;
-startTimer();
-
-function startTimer() {
-  sec = sec - 1;
-
-  if (sec === -1 && min >= 1) {
-    sec = 59;
-    min = min - 1;
-  }
-
-  ;
-
-  if (sec === 0 && min === 0) {
-    sec = "0" + sec;
-    console.log(min + ':' + sec);
-    console.log('Countdown is finished');
-    return;
-  }
-
-  ;
-
-  if (sec < 10 && sec >= 0) {
-    sec = "0" + sec;
-  }
-
-  ;
-  console.log(min + ':' + sec);
-  setTimeout(startTimer, 1000);
-}
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 var Timer =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(Timer, _React$Component);
 
-  function Timer() {
+  function Timer(props) {
+    var _this;
+
     _classCallCheck(this, Timer);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Timer).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Timer).call(this, props));
+    _this.state = {
+      sec: 0,
+      min: _this.props.time,
+      timerStarted: _this.props.timerStarted
+    };
+    _this.countDown = _this.countDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
   }
 
   _createClass(Timer, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.timerStarted) {
+        this.countDown();
+      } else {
+        this.setState({
+          sec: "00"
+        });
+        console.log('Timer not started');
+      }
+    } // Making sure props change coming from Build.js trigger a change into Timer.js local state and re renders properly
+
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.time !== this.props.time) {
+        this.setState({
+          min: nextProps.time
+        });
+      }
+
+      if (nextProps.timerStarted !== this.props.timerStarted) {
+        this.setState({
+          timerStarted: nextProps.timerStarted
+        });
+
+        if (nextProps.timerStarted) {
+          this.countDown();
+        } else {
+          this.setState({
+            sec: "00",
+            min: 0
+          });
+        }
+      }
+
+      ;
+    }
+  }, {
+    key: "countDown",
+    value: function countDown() {
+      var sec = this.state.sec;
+      var min = this.state.min;
+      sec = sec - 1;
+
+      if (sec === -1 && min >= 1) {
+        sec = 59;
+        min = min - 1;
+      }
+
+      ;
+
+      if (sec === -1 && min === 0) {
+        sec = "00";
+        this.setState({
+          min: this.props.time,
+          sec: sec,
+          timerStarted: false
+        });
+        return;
+      }
+
+      ;
+
+      if (sec < 10 && sec >= 0) {
+        sec = "0" + sec;
+      }
+
+      ;
+      this.setState({
+        min: min,
+        sec: sec
+      });
+      var ticker = setTimeout(this.countDown, 1000);
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
-        class: "tile is-child notification is-primary box"
+        className: "tile is-child notification is-primary box"
       }, _react.default.createElement("p", {
         id: "timer"
-      }, this.props.time, ":27"));
+      }, this.state.min, ":", this.state.sec));
     }
   }]);
 
@@ -24673,11 +24726,73 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ReStart = function ReStart() {
-  return _react.default.createElement("div", null, _react.default.createElement("a", {
-    class: "button is-fullwidth is-rounded"
-  }, "ReStart"));
-};
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var ReStart =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ReStart, _React$Component);
+
+  function ReStart(props) {
+    var _this;
+
+    _classCallCheck(this, ReStart);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ReStart).call(this, props));
+    _this.state = {
+      timerStarted: false
+    };
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(ReStart, [{
+    key: "handleClick",
+    value: function handleClick() {
+      var timerStarted;
+
+      if (this.state.timerStarted) {
+        this.setState({
+          timerStarted: false
+        });
+        timerStarted = false;
+      } else {
+        this.setState({
+          timerStarted: true
+        });
+        timerStarted = true;
+      }
+
+      this.props.startButtonClicked(timerStarted);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("a", {
+        className: "button is-fullwidth is-rounded",
+        onClick: this.handleClick
+      }, this.state.timerStarted ? 'Restart' : 'Start'));
+    }
+  }]);
+
+  return ReStart;
+}(_react.default.Component);
 
 var _default = ReStart;
 exports.default = _default;
@@ -24693,11 +24808,57 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Increment = function Increment() {
-  return _react.default.createElement("div", null, _react.default.createElement("a", {
-    class: "button is-fullwidth is-rounded"
-  }, "Increment"));
-};
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var Increment =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Increment, _React$Component);
+
+  function Increment(props) {
+    var _this;
+
+    _classCallCheck(this, Increment);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Increment).call(this, props));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Increment, [{
+    key: "handleClick",
+    value: function handleClick() {
+      var increment = 1;
+      this.props.incrementButtonClicked(increment);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("a", {
+        className: "button is-fullwidth is-rounded",
+        onClick: this.handleClick
+      }, "+ 1 min"));
+    }
+  }]);
+
+  return Increment;
+}(_react.default.Component);
 
 var _default = Increment;
 exports.default = _default;
@@ -24713,11 +24874,57 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Decrement = function Decrement() {
-  return _react.default.createElement("div", null, _react.default.createElement("a", {
-    class: "button is-fullwidth is-rounded"
-  }, "Decrement"));
-};
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var Decrement =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Decrement, _React$Component);
+
+  function Decrement(props) {
+    var _this;
+
+    _classCallCheck(this, Decrement);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Decrement).call(this, props));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Decrement, [{
+    key: "handleClick",
+    value: function handleClick() {
+      var decrement = 1;
+      this.props.decrementButtonClicked(decrement);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("a", {
+        className: "button is-fullwidth is-rounded",
+        onClick: this.handleClick
+      }, "- 1 min"));
+    }
+  }]);
+
+  return Decrement;
+}(_react.default.Component);
 
 var _default = Decrement;
 exports.default = _default;
@@ -24749,32 +24956,65 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 var ControlPanel =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(ControlPanel, _React$Component);
 
-  function ControlPanel() {
+  function ControlPanel(props) {
+    var _this;
+
     _classCallCheck(this, ControlPanel);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ControlPanel).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ControlPanel).call(this, props));
+    _this.state = {
+      timerStarted: false
+    };
+    _this.startButtonClicked = _this.startButtonClicked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.incrementButtonClicked = _this.incrementButtonClicked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.decrementButtonClicked = _this.decrementButtonClicked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
   }
 
   _createClass(ControlPanel, [{
+    key: "startButtonClicked",
+    value: function startButtonClicked(timerStarted) {
+      this.setState({
+        timerStarted: timerStarted
+      });
+      this.props.startButtonClicked(timerStarted);
+    }
+  }, {
+    key: "incrementButtonClicked",
+    value: function incrementButtonClicked(increment) {
+      this.props.incrementButtonClicked(increment);
+    }
+  }, {
+    key: "decrementButtonClicked",
+    value: function decrementButtonClicked(decrement) {
+      this.props.decrementButtonClicked(decrement);
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
-        class: "tile is-child is-3 notification is-warning box",
+        className: "tile is-child is-3 notification is-warning box",
         id: "controlpanel"
-      }, _react.default.createElement(_Increment.default, null), _react.default.createElement(_ReStart.default, null), _react.default.createElement(_Decrement.default, null));
+      }, _react.default.createElement(_Increment.default, {
+        incrementButtonClicked: this.incrementButtonClicked
+      }), _react.default.createElement(_ReStart.default, {
+        startButtonClicked: this.startButtonClicked
+      }), _react.default.createElement(_Decrement.default, {
+        decrementButtonClicked: this.decrementButtonClicked
+      }));
     }
   }]);
 
@@ -24828,21 +25068,21 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
-        class: "tile is-parent"
+        className: "tile is-parent"
       }, _react.default.createElement("article", {
-        class: "tile is-child is-5 notification box"
+        className: "tile is-child is-5 notification box"
       }, _react.default.createElement("p", {
-        class: "title"
+        className: "title"
       }, "How to?"), _react.default.createElement("ul", {
-        class: "content"
+        className: "content"
       }, _react.default.createElement("li", null, "Decide on the task to be done."), _react.default.createElement("li", null, "Set the pomodoro timer (traditionally to 25 minutes)."), _react.default.createElement("li", null, "Work on the task."), _react.default.createElement("li", null, "End work when the timer rings and put a checkmark on a piece of paper."), _react.default.createElement("li", null, "If you have fewer than four checkmarks, take a short break (3\u20135 minutes), then go to step 2."), _react.default.createElement("li", null, "After four pomodoros, take a longer break (15\u201330 minutes), reset your checkmark count to zero, then go to step 1."))), _react.default.createElement("article", {
-        class: "tile is-child is-7 notification is-success box"
+        className: "tile is-child is-7 notification is-success box"
       }, _react.default.createElement("p", {
-        class: "title"
+        className: "title"
       }, "Pomodoro?"), _react.default.createElement("p", {
-        class: "subtitle"
+        className: "subtitle"
       }, " From Wikipedia."), _react.default.createElement("p", {
-        class: "content"
+        className: "content"
       }, "The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro, from the Italian word for a tomato, after the tomato-shaped kitchen timer that Cirillo used as a university student. The technique has been widely popularized by dozens of apps and websites providing timers and instructions. Closely related to concepts such as timeboxing and iterative and incremental development used in software design, the method has been adopted in pair programming contexts.")));
     }
   }]);
@@ -24882,42 +25122,78 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var time = 23;
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 var Build =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(Build, _React$Component);
 
-  function Build() {
+  function Build(props) {
+    var _this;
+
     _classCallCheck(this, Build);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Build).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Build).call(this, props));
+    _this.state = {
+      timerStarted: false,
+      time: 1
+    };
+    _this.startButtonClicked = _this.startButtonClicked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.incrementButtonClicked = _this.incrementButtonClicked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.decrementButtonClicked = _this.decrementButtonClicked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
   }
 
   _createClass(Build, [{
+    key: "startButtonClicked",
+    value: function startButtonClicked(timerStarted) {
+      this.setState({
+        timerStarted: timerStarted
+      });
+    }
+  }, {
+    key: "incrementButtonClicked",
+    value: function incrementButtonClicked(increment) {
+      var incrementedtime = this.state.time + 1;
+      this.setState({
+        time: incrementedtime
+      });
+    }
+  }, {
+    key: "decrementButtonClicked",
+    value: function decrementButtonClicked(decrement) {
+      var decrementedtime = this.state.time - 1;
+      this.setState({
+        time: decrementedtime
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return (// Following a Bulma Tile template: https://bulma.io/documentation/layout/tiles/
         _react.default.createElement("div", {
-          class: "container"
+          className: "container"
         }, _react.default.createElement("div", {
-          class: "tile is-ancestor is-vertical is-11"
+          className: "tile is-ancestor is-vertical is-11"
         }, _react.default.createElement(_StatusMessage.default, {
-          time: time
+          time: this.state.time
         }), _react.default.createElement("div", {
-          class: "tile is-parent"
+          className: "tile is-parent"
         }, _react.default.createElement(_Timer.default, {
-          time: time
-        }), _react.default.createElement(_ControlPanel.default, null)), _react.default.createElement(_Instructions.default, null)))
+          time: this.state.time,
+          timerStarted: this.state.timerStarted
+        }), _react.default.createElement(_ControlPanel.default, {
+          startButtonClicked: this.startButtonClicked,
+          incrementButtonClicked: this.incrementButtonClicked,
+          decrementButtonClicked: this.decrementButtonClicked
+        })), _react.default.createElement(_Instructions.default, null)))
       );
     }
   }]);
@@ -25083,7 +25359,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33645" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35283" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

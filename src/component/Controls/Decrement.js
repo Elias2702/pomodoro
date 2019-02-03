@@ -1,9 +1,23 @@
 import React from 'react';
 
-const Decrement = () => (
-    <div>
-        <a class='button is-fullwidth is-rounded'>Decrement</a>
-    </div>
-)
+class Decrement extends React.Component  {
 
+  constructor(props) {
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+      let decrement = 1;
+      this.props.decrementButtonClicked(decrement);
+  }
+
+    render() {
+        return (
+            <div>
+                <a className='button is-fullwidth is-rounded' onClick={this.handleClick}>- 1 min</a>
+            </div>
+        )
+    }
+}
 export default Decrement
