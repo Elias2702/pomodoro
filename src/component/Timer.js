@@ -19,10 +19,9 @@ class Timer extends React.Component {
             this.setState({
                 sec: "00",
             });
-            console.log('Timer not started')
         }
     }
-    // Making sure props change coming from Build.js trigger a change into Timer.js local state and re renders properly
+    // Making sure props change coming from Build.js triggers a change into Timer.js local state and rerenders properly
     componentWillReceiveProps(nextProps){
             if(nextProps.time !== this.props.time) {
                 this.setState({min:nextProps.time});
